@@ -10,11 +10,16 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createUser } from "../store/User/User.action";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
   const api = "http://localhost:8080/users";
   const [data, setData] = useState({ name: "", email: "", bio: "" });
   const toast = useToast();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,16 +37,26 @@ const UserForm = () => {
         position: "top",
       });
     }
-    axios
-      .post(api, data)
+    dispatch(createUser(data))
       .then((res) => {
-        toast({
-          title: `${res.data.message}`,
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
+        if (res.status === "success") {
+          toast({
+            title: `${res.message}`,
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
+          navigate("/userlist");
+        } else {
+          toast({
+            title: "Something went wrong",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
+        }
       })
       .catch((er) => {
         toast({

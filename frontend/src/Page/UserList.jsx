@@ -16,33 +16,21 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserTable from "../Components/UserTable";
-
-const getUsers = async () => {
-  let res = await axios.get("http://localhost:8080/allusers");
-  return res.data;
-};
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersData } from "../store/User/User.action";
 
 const UserList = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { loading, data } = useSelector((store) => store.users);
 
   useEffect(() => {
-    setLoading(true);
-    getUsers()
-      .then((res) => {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch((er) => {
-        setError(true);
-        setLoading(false);
-      });
+    dispatch(getUsersData());
   }, []);
 
   if (loading) {
     return (
       <Box mt={"15%"}>
+    
         <Center>
           <Spinner
             w={"100px"}

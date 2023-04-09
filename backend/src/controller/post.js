@@ -121,12 +121,25 @@ const decreasePostCount = async (req, res) => {
   }
 };
 
-const getTotalPost = async (req, res) => {
+const getTotalPostCount = async (req, res) => {
   try {
     let allPost = await PostModal.find().count();
     res.status(200).send({
       status: "success",
       message: "All Posts count get successfully",
+      data: allPost,
+    });
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
+const getTotalPost = async (req, res) => {
+  try {
+    let allPost = await PostModal.find();
+    res.status(200).send({
+      status: "success",
+      message: "All Posts get successfully",
       data: allPost,
     });
   } catch (er) {
@@ -156,4 +169,5 @@ module.exports = {
   decreasePostCount,
   getTotalPost,
   getTopMostLikedPosts,
+  getTotalPostCount,
 };
