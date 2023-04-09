@@ -83,7 +83,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getTotalUsers = async (req, res) => {
+const getTotalUsersCount = async (req, res) => {
   try {
     let allUser = await UserModal.find().count();
     res.status(200).send({
@@ -96,10 +96,24 @@ const getTotalUsers = async (req, res) => {
   }
 };
 
+const getTotalUsers = async (req, res) => {
+  try {
+    let allUser = await UserModal.find();
+    res.status(200).send({
+      status: "success",
+      message: "All users get successfully",
+      data: allUser,
+    });
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
 module.exports = {
   addUser,
   getUserById,
   updateUser,
   deleteUser,
-  getTotalUsers
+  getTotalUsersCount,
+  getTotalUsers,
 };
