@@ -71,4 +71,89 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPostById, updatePost, deletePost };
+const increasePostCount = async (req, res) => {
+  let { id } = req.params;
+  try {
+    let singlePost = await PostModal.findOne({ _id: id });
+    if (singlePost) {
+      let updateLike = await PostModal.findByIdAndUpdate(
+        id,
+        {
+          likes: singlePost.likes + 1,
+        },
+        { new: true }
+      );
+      res.status(200).send({
+        status: "success",
+        message: "Like increases successfully",
+        data: updateLike,
+      });
+    } else {
+      res.status(404).send({ status: "error", message: "Post not found" });
+    }
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
+const decreasePostCount = async (req, res) => {
+  let { id } = req.params;
+  try {
+    let singlePost = await PostModal.findOne({ _id: id });
+    if (singlePost) {
+      let updateLike = await PostModal.findByIdAndUpdate(
+        id,
+        {
+          likes: singlePost.likes - 1,
+        },
+        { new: true }
+      );
+      res.status(200).send({
+        status: "success",
+        message: "Like decreases successfully",
+        data: updateLike,
+      });
+    } else {
+      res.status(404).send({ status: "error", message: "Post not found" });
+    }
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
+const getTotalPost = async (req, res) => {
+  try {
+    let allPost = await PostModal.find().count();
+    res.status(200).send({
+      status: "success",
+      message: "All Posts count get successfully",
+      data: allPost,
+    });
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
+const getTopMostLikedPosts = async (req, res) => {
+  try {
+    let allPost = await PostModal.find().sort({ likes: -1 }).limit(5);
+    res.status(200).send({
+      status: "success",
+      message: "Top five post get successfully",
+      data: allPost,
+    });
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
+module.exports = {
+  createPost,
+  getPostById,
+  updatePost,
+  deletePost,
+  increasePostCount,
+  decreasePostCount,
+  getTotalPost,
+  getTopMostLikedPosts,
+};
