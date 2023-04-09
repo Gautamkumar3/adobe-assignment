@@ -1,8 +1,18 @@
 const express = require("express");
-const { addUser } = require("../controller/user");
+const {
+  addUser,
+  getUserById,
+  updateUser,
+  deleteUser,
+  getTotalUsers,
+} = require("../controller/user");
 
 const userRouter = express.Router();
 
-userRouter.post("/", addUser);
+userRouter.post("/users", addUser);
+userRouter.get("/users/:id", getUserById);
+userRouter.put("/users/:id", updateUser);
+userRouter.delete("/users/:id", deleteUser);
+userRouter.get("/analytics/users", getTotalUsers);
 
 module.exports = userRouter;
