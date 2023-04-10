@@ -80,7 +80,7 @@ export const postReducer = (state = initialState, { type, payload }) => {
     case UPDATE_POST_SUCCESS:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: false,
         data: [...state.data],
       };
@@ -101,7 +101,7 @@ export const postReducer = (state = initialState, { type, payload }) => {
     case DELETE_POST_SUCCESS:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: false,
         data: [...state.data],
       };

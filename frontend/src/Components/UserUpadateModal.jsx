@@ -4,7 +4,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -54,7 +53,6 @@ const UserUpadateModal = ({ id }) => {
 
   return (
     <>
-
       <EditIcon onClick={onOpen} _hover={{ cursor: "pointer" }} h={6} w={6} />
 
       <Modal isOpen={isOpen} onClose={onClose}>

@@ -1,4 +1,4 @@
-import { Avatar, Box, Center, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, Center, Heading, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -51,6 +51,13 @@ const UserDetails = () => {
         >
           Go to user analytics page
         </Text>
+      </Link>
+      <Link to={`/post/${data._id}`}>
+        <Center>
+          <Button colorScheme="whatsapp" my={3} w={"80%"}>
+            Create Post
+          </Button>
+        </Center>
       </Link>
     </Box>
   );

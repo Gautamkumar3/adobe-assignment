@@ -18,7 +18,8 @@ const UserAnalytics = () => {
 
   return (
     <Box>
-      <Heading>
+          <Heading>
+             
         <b>Total Users : </b> {count}
       </Heading>
     </Box>

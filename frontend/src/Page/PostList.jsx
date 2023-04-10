@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import {
   Box,
   Center,
@@ -10,18 +11,16 @@ import {
   TableContainer,
   Heading,
 } from "@chakra-ui/react";
-
-import React, { useEffect, useState } from "react";
-import UserTable from "../Components/UserTable";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersData } from "../store/User/User.action";
+import PostTable from "../Components/PostTable";
+import { getPostsData } from "../store/Post/Post.action";
 
-const UserList = () => {
+const PostList = () => {
   const dispatch = useDispatch();
-  const { loading, data } = useSelector((store) => store.users);
+  const { loading, data } = useSelector((store) => store.posts);
 
   useEffect(() => {
-    dispatch(getUsersData());
+    dispatch(getPostsData());
   }, []);
 
   if (loading) {
@@ -40,30 +39,31 @@ const UserList = () => {
       </Box>
     );
   }
+
   return (
     <Box w="80%" m="auto">
       <Heading textAlign={"center"} my={5}>
-        User List
+        Post List
       </Heading>
       <TableContainer>
         <Table variant="striped" colorScheme="">
           <Thead h="60px" bg="gray.200">
             <Tr>
               <Th>S.No</Th>
-              <Th>Name</Th>
-              <Th>Email</Th>
+              <Th>Content</Th>
               <Th>View</Th>
               <Th>Edit</Th>
               <Th>Delete</Th>
+              <Th>Like</Th>
+              <Th>Unlike</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((user, index) => (
-              <UserTable
-                key={user._id}
-                id={user._id}
-                name={user.name}
-                email={user.email}
+            {data.map((post, index) => (
+              <PostTable
+                key={post._id}
+                id={post._id}
+                content={post.content}
                 sn={index + 1}
               />
             ))}
@@ -74,4 +74,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default PostList;

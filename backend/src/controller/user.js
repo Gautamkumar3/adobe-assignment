@@ -1,3 +1,4 @@
+const Post = require("../modal/Post");
 const UserModal = require("../modal/user");
 
 const addUser = async (req, res) => {
@@ -109,6 +110,26 @@ const getTotalUsers = async (req, res) => {
   }
 };
 
+const getTopFiveActiveUsers = async (req, res) => {
+  try {
+    let topUsers = await Post.aggregate([
+      { $group: { _id: "$user", count: { $sum: 1 } } },
+      {
+        $lookup: {
+          from: "user",
+          localField: "_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+    ]);
+    console.log(topUsers);
+    res.send(topUsers);
+  } catch (er) {
+    res.status(404).send({ status: "error", message: er.message });
+  }
+};
+
 module.exports = {
   addUser,
   getUserById,
@@ -116,4 +137,5 @@ module.exports = {
   deleteUser,
   getTotalUsersCount,
   getTotalUsers,
+  getTopFiveActiveUsers,
 };
