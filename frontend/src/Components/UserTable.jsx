@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getUsersData } from "../store/User/User.action";
+import UserUpadateModal from "./UserUpadateModal";
 
 const UserTable = ({ id, name, email, sn }) => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const UserTable = ({ id, name, email, sn }) => {
         </Button>
       </Td>
       <Td>
-        <EditIcon h={6} w={6} _hover={{ cursor: "pointer" }} />
+        <UserUpadateModal id={id} />
       </Td>
       <Td>
         <DeleteIcon

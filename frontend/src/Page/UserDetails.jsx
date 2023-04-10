@@ -39,14 +39,9 @@ const UserDetails = () => {
         <b>Email : </b> {data.email}
       </Text>
       <Text>
-        <b>Bio : </b> {data.bio}, Lorem ipsum dolor, sit amet consectetur
-        adipisicing elit. Sapiente ipsam, aut, quo porro nostrum asperiores
-        incidunt, eaque autem obcaecati voluptatem a officia at. Cumque impedit
-        distinctio, porro, sit aliquam nemo repudiandae ut pariatur perferendis
-        cupiditate ipsa accusamus error! Aspernatur asperiores nulla culpa
-        suscipit accusantium quis doloremque incidunt reiciendis eaque repellat.
+        <b>Bio : </b> {data.bio}
       </Text>
-      <Link to="/userlist">
+      <Link to="/useranalytics">
         <Text
           my={2}
           color={"blue.600"}
@@ -54,7 +49,7 @@ const UserDetails = () => {
           textDecor={"underline"}
           fontWeight={"bold"}
         >
-          Go back to userlist page
+          Go to user analytics page
         </Text>
       </Link>
     </Box>

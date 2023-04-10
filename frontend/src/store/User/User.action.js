@@ -9,6 +9,9 @@ import {
   GET_USER_ERROR,
   GET_USER_LOADING,
   GET_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_LOADING,
+  UPDATE_USER_SUCCESS,
 } from "./User.types";
 
 const api = "http://localhost:8080";
@@ -45,6 +48,18 @@ export const deleteUser = (id) => async (dispatch) => {
     return res.data;
   } catch (er) {
     dispatch({ type: DELETE_USER_ERROR });
+    return er;
+  }
+};
+
+export const updateUser = (id, data) => async (dispatch) => {
+  dispatch({ type: UPDATE_USER_LOADING });
+  try {
+    let res = await axios.put(`${api}/users/${id}`, data);
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data.data });
+    return res.data;
+  } catch (er) {
+    dispatch({ type: UPDATE_USER_ERROR });
     return er;
   }
 };
