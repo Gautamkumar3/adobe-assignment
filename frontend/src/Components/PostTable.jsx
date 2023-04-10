@@ -1,10 +1,11 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import React from "react";
-import { Button, Td, Text, Tr, useToast } from "@chakra-ui/react";
+import { Box, Button, Td, Text, Tr, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import PostUpdateModal from "./PostUpdateModal";
 import { useDispatch } from "react-redux";
 import { deletePost, getPostsData } from "../store/Post/Post.action";
+import { AiFillLike, AiFillDislike } from "react-icons/ai";
 
 const PostTable = ({ id, sn, content }) => {
   const navigate = useNavigate();
@@ -60,8 +61,16 @@ const PostTable = ({ id, sn, content }) => {
           onClick={() => handleDelete(id)}
         />
       </Td>
-      <Td>Like</Td>
-      <Td>Unlike</Td>
+      <Td>
+        <Box w="fit-content" _hover={{ cursor: "pointer" }}>
+          <AiFillLike size={"25px"} />
+        </Box>
+      </Td>
+      <Td>
+        <Box w="fit-content" _hover={{ cursor: "pointer" }}>
+          <AiFillDislike size={"25px"} />
+        </Box>
+      </Td>
     </Tr>
   );
 };

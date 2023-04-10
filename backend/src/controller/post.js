@@ -71,7 +71,7 @@ const deletePost = async (req, res) => {
   }
 };
 
-const increasePostCount = async (req, res) => {
+const increasePostLikeCount = async (req, res) => {
   let { id } = req.params;
   try {
     let singlePost = await PostModal.findOne({ _id: id });
@@ -96,10 +96,16 @@ const increasePostCount = async (req, res) => {
   }
 };
 
-const decreasePostCount = async (req, res) => {
+const decreasePostLikeCount = async (req, res) => {
   let { id } = req.params;
   try {
     let singlePost = await PostModal.findOne({ _id: id });
+    if (singlePost.likes === 0) {
+      return res.status(401).send({
+        status: "error",
+        message: "Like cann't be less than zero",
+      });
+    }
     if (singlePost) {
       let updateLike = await PostModal.findByIdAndUpdate(
         id,
@@ -165,8 +171,8 @@ module.exports = {
   getPostById,
   updatePost,
   deletePost,
-  increasePostCount,
-  decreasePostCount,
+  increasePostLikeCount,
+  decreasePostLikeCount,
   getTotalPost,
   getTopMostLikedPosts,
   getTotalPostCount,

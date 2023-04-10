@@ -14,7 +14,8 @@ import {
   UPDATE_USER_SUCCESS,
 } from "./User.types";
 
-const api = "http://localhost:8080";
+// const api = "http://localhost:8080";
+const api = "https://adobe-project-api-production.up.railway.app";
 
 export const getUsersData = () => async (dispatch) => {
   dispatch({ type: GET_USER_LOADING });

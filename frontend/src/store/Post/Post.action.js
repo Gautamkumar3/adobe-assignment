@@ -14,7 +14,8 @@ import {
   UPDATE_POST_SUCCESS,
 } from "./Post.types";
 
-const api = "http://localhost:8080";
+// const api = "http://localhost:8080";
+const api = "https://adobe-project-api-production.up.railway.app";
 
 export const getPostsData = () => async (dispatch) => {
   dispatch({ type: GET_POST_LOADING });
